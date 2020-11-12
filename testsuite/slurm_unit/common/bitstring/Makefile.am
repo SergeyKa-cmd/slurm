@@ -12,9 +12,12 @@ TESTS = \
 if HAVE_CHECK
 MYCFLAGS  = @CHECK_CFLAGS@  #-Wall -ansi -pedantic -std=c99
 #MYCFLAGS += -D_ISO99_SOURCE -Wunused-but-set-variable
-TESTS += bit_unfmt_hexmask-test
+TESTS += bit_unfmt_hexmask-test \
+	 bit_xlate_task_str-test
 
 bit_unfmt_hexmask_test_CFLAGS = $(MYCFLAGS)
 bit_unfmt_hexmask_test_LDADD  = $(LDADD) @CHECK_LIBS@
+bit_xlate_task_str_test_CFLAGS = $(MYCFLAGS)
+bit_xlate_task_str_test_LDADD  = $(LDADD) @CHECK_LIBS@
 
 endif

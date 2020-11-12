@@ -91,7 +91,9 @@ target_triplet = @target@
 check_PROGRAMS = $(am__EXEEXT_2)
 TESTS = bitstring-test$(EXEEXT) $(am__EXEEXT_1)
 #MYCFLAGS += -D_ISO99_SOURCE -Wunused-but-set-variable
-@HAVE_CHECK_TRUE@am__append_1 = bit_unfmt_hexmask-test
+@HAVE_CHECK_TRUE@am__append_1 = bit_unfmt_hexmask-test \
+@HAVE_CHECK_TRUE@	 bit_xlate_task_str-test
+
 subdir = testsuite/slurm_unit/common/bitstring
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/auxdir/ax_check_compile_flag.m4 \
@@ -148,7 +150,8 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h $(top_builddir)/slurm/slurm.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-@HAVE_CHECK_TRUE@am__EXEEXT_1 = bit_unfmt_hexmask-test$(EXEEXT)
+@HAVE_CHECK_TRUE@am__EXEEXT_1 = bit_unfmt_hexmask-test$(EXEEXT) \
+@HAVE_CHECK_TRUE@	bit_xlate_task_str-test$(EXEEXT)
 am__EXEEXT_2 = bitstring-test$(EXEEXT) $(am__EXEEXT_1)
 bit_unfmt_hexmask_test_SOURCES = bit_unfmt_hexmask-test.c
 bit_unfmt_hexmask_test_OBJECTS =  \
@@ -165,6 +168,15 @@ am__v_lt_1 =
 bit_unfmt_hexmask_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
 	$(bit_unfmt_hexmask_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+bit_xlate_task_str_test_SOURCES = bit_xlate_task_str-test.c
+bit_xlate_task_str_test_OBJECTS =  \
+	bit_xlate_task_str_test-bit_xlate_task_str-test.$(OBJEXT)
+@HAVE_CHECK_TRUE@bit_xlate_task_str_test_DEPENDENCIES =  \
+@HAVE_CHECK_TRUE@	$(am__DEPENDENCIES_2)
+bit_xlate_task_str_test_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CCLD) \
+	$(bit_xlate_task_str_test_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 bitstring_test_SOURCES = bitstring-test.c
 bitstring_test_OBJECTS = bitstring-test.$(OBJEXT)
@@ -188,6 +200,7 @@ depcomp = $(SHELL) $(top_srcdir)/auxdir/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade =  \
 	./$(DEPDIR)/bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.Po \
+	./$(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po \
 	./$(DEPDIR)/bitstring-test.Po
 am__mv = mv -f
 COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
@@ -208,7 +221,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = bit_unfmt_hexmask-test.c bitstring-test.c
+SOURCES = bit_unfmt_hexmask-test.c bit_xlate_task_str-test.c \
+	bitstring-test.c
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -698,6 +712,8 @@ LDADD = $(top_builddir)/src/api/libslurm.o $(DL_LIBS)
 @HAVE_CHECK_TRUE@MYCFLAGS = @CHECK_CFLAGS@  #-Wall -ansi -pedantic -std=c99
 @HAVE_CHECK_TRUE@bit_unfmt_hexmask_test_CFLAGS = $(MYCFLAGS)
 @HAVE_CHECK_TRUE@bit_unfmt_hexmask_test_LDADD = $(LDADD) @CHECK_LIBS@
+@HAVE_CHECK_TRUE@bit_xlate_task_str_test_CFLAGS = $(MYCFLAGS)
+@HAVE_CHECK_TRUE@bit_xlate_task_str_test_LDADD = $(LDADD) @CHECK_LIBS@
 all: all-am
 
 .SUFFIXES:
@@ -745,6 +761,10 @@ bit_unfmt_hexmask-test$(EXEEXT): $(bit_unfmt_hexmask_test_OBJECTS) $(bit_unfmt_h
 	@rm -f bit_unfmt_hexmask-test$(EXEEXT)
 	$(AM_V_CCLD)$(bit_unfmt_hexmask_test_LINK) $(bit_unfmt_hexmask_test_OBJECTS) $(bit_unfmt_hexmask_test_LDADD) $(LIBS)
 
+bit_xlate_task_str-test$(EXEEXT): $(bit_xlate_task_str_test_OBJECTS) $(bit_xlate_task_str_test_DEPENDENCIES) $(EXTRA_bit_xlate_task_str_test_DEPENDENCIES) 
+	@rm -f bit_xlate_task_str-test$(EXEEXT)
+	$(AM_V_CCLD)$(bit_xlate_task_str_test_LINK) $(bit_xlate_task_str_test_OBJECTS) $(bit_xlate_task_str_test_LDADD) $(LIBS)
+
 bitstring-test$(EXEEXT): $(bitstring_test_OBJECTS) $(bitstring_test_DEPENDENCIES) $(EXTRA_bitstring_test_DEPENDENCIES) 
 	@rm -f bitstring-test$(EXEEXT)
 	$(AM_V_CCLD)$(LINK) $(bitstring_test_OBJECTS) $(bitstring_test_LDADD) $(LIBS)
@@ -756,6 +776,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.Po@am__quote@ # am--include-marker
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bitstring-test.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -798,6 +819,20 @@ bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.obj: bit_unfmt_hexmask-test.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bit_unfmt_hexmask-test.c' object='bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(bit_unfmt_hexmask_test_CFLAGS) $(CFLAGS) -c -o bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.obj `if test -f 'bit_unfmt_hexmask-test.c'; then $(CYGPATH_W) 'bit_unfmt_hexmask-test.c'; else $(CYGPATH_W) '$(srcdir)/bit_unfmt_hexmask-test.c'; fi`
+
+bit_xlate_task_str_test-bit_xlate_task_str-test.o: bit_xlate_task_str-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(bit_xlate_task_str_test_CFLAGS) $(CFLAGS) -MT bit_xlate_task_str_test-bit_xlate_task_str-test.o -MD -MP -MF $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Tpo -c -o bit_xlate_task_str_test-bit_xlate_task_str-test.o `test -f 'bit_xlate_task_str-test.c' || echo '$(srcdir)/'`bit_xlate_task_str-test.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Tpo $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bit_xlate_task_str-test.c' object='bit_xlate_task_str_test-bit_xlate_task_str-test.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(bit_xlate_task_str_test_CFLAGS) $(CFLAGS) -c -o bit_xlate_task_str_test-bit_xlate_task_str-test.o `test -f 'bit_xlate_task_str-test.c' || echo '$(srcdir)/'`bit_xlate_task_str-test.c
+
+bit_xlate_task_str_test-bit_xlate_task_str-test.obj: bit_xlate_task_str-test.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(bit_xlate_task_str_test_CFLAGS) $(CFLAGS) -MT bit_xlate_task_str_test-bit_xlate_task_str-test.obj -MD -MP -MF $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Tpo -c -o bit_xlate_task_str_test-bit_xlate_task_str-test.obj `if test -f 'bit_xlate_task_str-test.c'; then $(CYGPATH_W) 'bit_xlate_task_str-test.c'; else $(CYGPATH_W) '$(srcdir)/bit_xlate_task_str-test.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Tpo $(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='bit_xlate_task_str-test.c' object='bit_xlate_task_str_test-bit_xlate_task_str-test.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(bit_xlate_task_str_test_CFLAGS) $(CFLAGS) -c -o bit_xlate_task_str_test-bit_xlate_task_str-test.obj `if test -f 'bit_xlate_task_str-test.c'; then $(CYGPATH_W) 'bit_xlate_task_str-test.c'; else $(CYGPATH_W) '$(srcdir)/bit_xlate_task_str-test.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -1012,6 +1047,13 @@ bit_unfmt_hexmask-test.log: bit_unfmt_hexmask-test$(EXEEXT)
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
 	"$$tst" $(AM_TESTS_FD_REDIRECT)
+bit_xlate_task_str-test.log: bit_xlate_task_str-test$(EXEEXT)
+	@p='bit_xlate_task_str-test$(EXEEXT)'; \
+	b='bit_xlate_task_str-test'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
 .test.log:
 	@p='$<'; \
 	$(am__set_b); \
@@ -1072,6 +1114,7 @@ clean-am: clean-checkPROGRAMS clean-generic clean-libtool \
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.Po
+	-rm -f ./$(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po
 	-rm -f ./$(DEPDIR)/bitstring-test.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
@@ -1119,6 +1162,7 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/bit_unfmt_hexmask_test-bit_unfmt_hexmask-test.Po
+	-rm -f ./$(DEPDIR)/bit_xlate_task_str_test-bit_xlate_task_str-test.Po
 	-rm -f ./$(DEPDIR)/bitstring-test.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
