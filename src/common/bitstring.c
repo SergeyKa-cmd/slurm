@@ -1434,8 +1434,10 @@ int bit_unfmt_hexmask(bitstr_t * bitmap, const char* str)
 	int32_t current;
 	bitoff_t bitsize;
 
-	if (!bitmap || !str)
-		return -1;
+	xassert(bitmap);
+
+	if (!str)
+		return rc;
 
 	len = strlen(str);
 	bitsize = bit_size(bitmap);
