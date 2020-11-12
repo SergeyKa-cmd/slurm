@@ -148,6 +148,8 @@ bitstr_t *bit_copy(bitstr_t *b);
 bitstr_t *bit_pick_cnt(bitstr_t *b, bitoff_t nbits);
 bitoff_t bit_get_bit_num(bitstr_t *b, int32_t pos);
 int32_t	bit_get_pos_num(bitstr_t *b, bitoff_t pos);
+extern void bit_xlate_task_str(char **array_task_str, uint32_t array_max_tasks,
+			       void **array_bitmap);
 
 #define FREE_NULL_BITMAP(_X)		\
 	do {				\
